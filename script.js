@@ -12,7 +12,7 @@
      Target date: 90 days from the day the page first loads.
      If you want a fixed date change LAUNCH_DATE below.
   ---------------------------------------------------------- */
-  var LAUNCH_DATE_KEY = 'hattika_launch_date';
+  var LAUNCH_DATE_KEY = '1 April 2026';
 
   function getLaunchDate() {
     var stored = localStorage.getItem(LAUNCH_DATE_KEY);
@@ -20,7 +20,7 @@
       return new Date(stored);
     }
     var target = new Date();
-    target.setDate(target.getDate() + 90);
+    target.setDate(target.getDate() + 30);
     target.setHours(0, 0, 0, 0);
     localStorage.setItem(LAUNCH_DATE_KEY, target.toISOString());
     return target;
@@ -111,8 +111,67 @@
     );
     revealEls.forEach(function (el) { observer.observe(el); });
   }
+
   /* ----------------------------------------------------------
-     4. Footer year
+     4. FAQ Accordion
+  ---------------------------------------------------------- */
+  var faqTriggers = document.querySelectorAll('.faq__trigger');
+  faqTriggers.forEach(function (trigger) {
+    trigger.addEventListener('click', function () {
+      var isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+      var content = trigger.nextElementSibling;
+      var icon = trigger.querySelector('.faq__icon');
+      
+      // Close all others
+      faqTriggers.forEach(function (otherTrigger) {
+        if (otherTrigger !== trigger) {
+          otherTrigger.setAttribute('aria-expanded', 'false');
+          otherTrigger.nextElementSibling.style.maxHeight = null;
+          otherTrigger.querySelector('.faq__icon').textContent = '+';
+        }
+      });
+      
+      if (!isExpanded) {
+        trigger.setAttribute('aria-expanded', 'true');
+        content.style.maxHeight = content.scrollHeight + 'px';
+        icon.textContent = '−';
+      } else {
+        trigger.setAttribute('aria-expanded', 'false');
+        content.style.maxHeight = null;
+        icon.textContent = '+';
+      }
+    });
+  });
+
+  /* ----------------------------------------------------------
+     5. Liquid Effect on Mouse Move
+  ---------------------------------------------------------- */
+  var liquidBg = document.createElement('div');
+  liquidBg.className = 'liquid-bg';
+  document.body.appendChild(liquidBg);
+
+  var mouseX = 0, mouseY = 0;
+  var liquidX = 0, liquidY = 0;
+
+  document.addEventListener('mousemove', function (e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  function animateLiquid() {
+    // easing
+    liquidX += (mouseX - liquidX) * 0.05;
+    liquidY += (mouseY - liquidY) * 0.05;
+    
+    // Using simple translate to move the blob around smoothly
+    liquidBg.style.transform = 'translate(' + liquidX + 'px, ' + liquidY + 'px)';
+    
+    requestAnimationFrame(animateLiquid);
+  }
+  requestAnimationFrame(animateLiquid);
+
+  /* ----------------------------------------------------------
+     6. Footer year
   ---------------------------------------------------------- */
   var yearEl = document.getElementById('year');
   if (yearEl) {
