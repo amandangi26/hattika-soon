@@ -1,10 +1,10 @@
 /* ============================================================
    Hattika — Coming Soon Page
    Color Palette:
-     #0F0F0F  Charcoal Black (background)
-     #F5F3EE  Soft Ivory White (primary text)
-     #C89B3C  Saffron Gold (accent)
-     #9A9A9A  Muted Grey (secondary text)
+     #F1E9DB  Bone/Parchment (background)
+     #0A2427  Deepest Forest (body text)
+     #123F43  Deep Pine Teal (primary)
+     #C5A059  Champagne Gold (accent)
    ============================================================ */
 
 /* ---------- Reset & Base ---------- */
@@ -15,13 +15,14 @@
 }
 
 :root {
-  --bg:         #0F0F0F;
-  --text:       #F5F3EE;
-  --accent:     #C89B3C;
-  --muted:      #9A9A9A;
-  --border:     rgba(200, 155, 60, 0.25);
+  --bg:         #0A2427;
+  --text:       #F1E9DB;
+  --primary:    #123F43;
+  --accent:     #C5A059;
+  --muted:      rgba(241, 233, 219, 0.65);
+  --border:     rgba(197, 160, 89, 0.25);
   --font-head:  'Playfair Display', serif;
-  --font-body:  'Inter', sans-serif;
+  --font-body:  'Montserrat', sans-serif;
 }
 
 html {
@@ -46,6 +47,7 @@ body::before {
   opacity: 0.03;
   pointer-events: none;
   z-index: 0;
+  mix-blend-mode: screen;
 }
 
 /* ---------- Hero Section ---------- */
@@ -136,6 +138,12 @@ body::before {
   opacity: 0;
   transform: translateY(24px);
   animation: slideUp 1s ease 0.5s forwards;
+}
+
+.loop-h {
+  color: var(--accent);
+  font-family: var(--font-head);
+  font-style: bold;
 }
 
 /* Accent underline on brand */
@@ -240,7 +248,8 @@ body::before {
   border: 1px solid var(--border);
   border-radius: 4px;
   overflow: hidden;
-  background: rgba(255,255,255,0.03);
+  background: rgba(18, 63, 67, 0.4);
+  backdrop-filter: blur(4px);
   transition: border-color 0.3s;
 }
 
@@ -267,7 +276,7 @@ body::before {
 .notify-form__btn {
   padding: 0.75rem 1.25rem;
   background: var(--accent);
-  color: #0F0F0F;
+  color: var(--bg);
   font-family: var(--font-body);
   font-size: 0.78rem;
   font-weight: 600;
@@ -280,7 +289,8 @@ body::before {
 }
 
 .notify-form__btn:hover {
-  background: #d9aa4a;
+  background: #ab894a;
+  color: var(--text);
   transform: scale(1.03);
 }
 
@@ -459,8 +469,8 @@ body::before {
   width: 600px;
   height: 600px;
   border-radius: 50%;
-  background-image: radial-gradient(circle, var(--accent) 0%, rgba(200, 155, 60, 0.4) 30%, transparent 70%);
-  opacity: 0.12;
+  background-image: radial-gradient(circle, var(--accent) 0%, rgba(18, 63, 67, 0.4) 30%, transparent 70%);
+  opacity: 0.15;
   filter: blur(80px);
   pointer-events: none;
   z-index: 0;
